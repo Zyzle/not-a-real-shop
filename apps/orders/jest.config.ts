@@ -1,11 +1,11 @@
 /* eslint-disable */
 export default {
-  displayName: 'products',
+  displayName: 'orders',
   preset: '../../jest.preset.js',
   testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/packages/products',
+  coverageDirectory: '../../coverage/apps/orders',
 };

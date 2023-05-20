@@ -1,7 +1,7 @@
 {
   "name": "shop",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/shop/src",
+  "sourceRoot": "apps/shop/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -9,7 +9,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/packages/shop"
+        "outputPath": "dist/apps/shop"
       },
       "configurations": {
         "development": {
@@ -25,7 +25,7 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "shop:build",
-        "proxyConfig": "packages/shop/proxy.conf.json"
+        "proxyConfig": "apps/shop/proxy.conf.json"
       },
       "configurations": {
         "development": {
@@ -55,17 +55,17 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["coverage/packages/shop"],
+      "outputs": ["coverage/apps/shop"],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "../../coverage/packages/shop"
+        "reportsDirectory": "../../coverage/apps/shop"
       }
     },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/shop/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/shop/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "serve-static": {
