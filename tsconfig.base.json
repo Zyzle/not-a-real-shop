@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@not-a-real-shop/database": ["libs/database/src/index.ts"]
+      "@not-a-real-shop/database": ["libs/database/src/index.ts"],
+      "@not-a-real-shop/rpc": ["libs/rpc/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
