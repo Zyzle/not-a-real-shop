@@ -1,19 +1,32 @@
 /* eslint-disable */
+import { Metadata } from "@grpc/grpc-js";
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
+import { Observable } from "rxjs";
 
 export const protobufPackage = "users";
+
+export interface GetUserRequest {
+}
+
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+}
 
 export const USERS_PACKAGE_NAME = "users";
 
 export interface UsersServiceClient {
+  getUser(request: GetUserRequest, metadata?: Metadata): Observable<User>;
 }
 
 export interface UsersServiceController {
+  getUser(request: GetUserRequest, metadata?: Metadata): Promise<User> | Observable<User> | User;
 }
 
 export function UsersServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = [];
+    const grpcMethods: string[] = ["getUser"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("UsersService", method)(constructor.prototype[method], method, descriptor);

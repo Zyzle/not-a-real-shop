@@ -5,6 +5,7 @@ package products;
 service ProductsService {
 	rpc GetProduct (GetProductRequest) returns (Product) {}
 	rpc GetProducts (GetProductsRequest) returns (Products) {}
+	rpc ReserveStock (StockReservationRequest) returns (StockReservation) {}
 }
 
 message GetProductRequest {
@@ -14,12 +15,26 @@ message GetProductRequest {
 message GetProductsRequest {
 }
 
+message StockReservationRequest {
+	string productId = 1;
+	int32 quantity = 2;
+	string cartItemId = 3;
+}
+
 message Product {
 	string id = 1;
 	string name = 2;
 	float price = 3;
+	int32 stock = 4;
 }
 
 message Products {
 	repeated Product products = 1;
+}
+
+message StockReservation {
+	string id = 1;
+	string productId = 2;
+	int32 quantity = 3;
+	string cartItemId = 4;
 }

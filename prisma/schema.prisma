@@ -6,6 +6,10 @@ generator client {
   previewFeatures = ["multiSchema"]
 }
 
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -13,29 +17,55 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid()) @db.Uuid
-  email     String   @unique
+  id        String    @id @default(uuid()) @db.Uuid
+  email     String    @unique
   name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  cart      UserCart?
+
+  @@schema("users")
+}
+
+model UserCart {
+  id        String      @id @default(uuid()) @db.Uuid
+  userId    String      @unique @db.Uuid
+  total     Float
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  user      User        @relation(fields: [userId], references: [id])
+  CartItems CartItems[]
+
+  @@schema("users")
+}
+
+model CartItems {
+  id        String   @id @default(uuid()) @db.Uuid
+  cartId    String   @db.Uuid
+  productId String   @db.Uuid
+  quantity  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  cart      UserCart @relation(fields: [cartId], references: [id])
 
   @@schema("users")
 }
 
 model Product {
-  id        String   @id @default(uuid()) @db.Uuid
-  name      String
-  price     Float
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Stock     Stock[]
+  id               String             @id @default(uuid()) @db.Uuid
+  name             String
+  price            Float
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  Stock            Stock?
+  StockReservation StockReservation[]
 
   @@schema("products")
 }
 
 model Stock {
   id        String   @id @default(uuid()) @db.Uuid
-  productId String   @db.Uuid
+  productId String   @unique @db.Uuid
   quantity  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -44,9 +74,21 @@ model Stock {
   @@schema("products")
 }
 
+model StockReservation {
+  id         String   @id @default(uuid()) @db.Uuid
+  productId  String   @db.Uuid
+  quantity   Int
+  cartItemId String   @db.Uuid
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  product    Product  @relation(fields: [productId], references: [id])
+
+  @@schema("products")
+}
+
 model Order {
   id         String       @id @default(uuid()) @db.Uuid
-  userId     String
+  userId     String       @db.Uuid
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
   OrderItems OrderItems[]
@@ -57,7 +99,7 @@ model Order {
 model OrderItems {
   id        String   @id @default(uuid()) @db.Uuid
   orderId   String   @db.Uuid
-  productId String
+  productId String   @db.Uuid
   quantity  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
