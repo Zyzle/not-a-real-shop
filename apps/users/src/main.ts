@@ -10,6 +10,7 @@ async function bootstrap() {
     {
       transport: Transport.GRPC,
       options: {
+        url: `localhost:${process.env.USERS_PORT}`,
         package: 'users',
         protoPath: './proto/users.proto',
       },

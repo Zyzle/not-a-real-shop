@@ -2,14 +2,19 @@ syntax = "proto3";
 
 package users;
 
+import "orders.proto";
+
 service UsersService {
 	rpc GetUser (GetUserRequest) returns (User) {}
 }
 
-message GetUserRequest {}
+message GetUserRequest {
+	string id = 1;
+}
 
 message User {
 	string id = 1;
 	string email = 2;
 	string name = 3;
+	optional orders.Orders orders = 4;
 }

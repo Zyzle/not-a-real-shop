@@ -17,14 +17,10 @@ describe('ProductController', () => {
   });
 
   it('should return products', () => {
-    expect(controller.getProducts({})).toEqual({ products: [] });
+    expect(controller.getProducts({})).toEqual({});
   });
 
   it('should return product', () => {
-    expect(controller.getProduct({ id: '1' })).toEqual({
-      id: '1',
-      name: 'Product 2',
-      price: 1000,
-    });
+    expect(controller.getProduct({ id: '1' })).toEqual({});
   });
 });

@@ -6,6 +6,7 @@ service ProductsService {
 	rpc GetProduct (GetProductRequest) returns (Product) {}
 	rpc GetProducts (GetProductsRequest) returns (Products) {}
 	rpc ReserveStock (StockReservationRequest) returns (StockReservation) {}
+	rpc ReleaseStock (StockReservationRequest) returns (StockReservation) {}
 }
 
 message GetProductRequest {

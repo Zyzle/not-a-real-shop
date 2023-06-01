@@ -19,5 +19,12 @@ jobs:
 
       - run: npx nx format:check
       - run: npx nx affected -t lint --parallel=3
-      - run: npx nx affected -t test --parallel=3 --configuration=ci
+      - run: npx nx affected -t test --parallel=3 --configuration=ci --coverage --coverageReporters=lcov
+      - run: node ./tools/coverageMerger.js
       - run: npx nx affected -t build --parallel=3
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./coverage/lcov.info

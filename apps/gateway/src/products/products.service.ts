@@ -1,4 +1,4 @@
-import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ClientGrpc } from '@nestjs/microservices';
 
 import { Products } from '@not-a-real-shop/rpc';
@@ -23,6 +23,23 @@ export class ProductsService implements OnModuleInit {
   }
 
   getProducts() {
+    Logger.debug('Getting products');
     return this.productsRpcService.getProducts({});
+  }
+
+  reserveStock(productId: string, quantity: number, cartItemId: string) {
+    return this.productsRpcService.reserveStock({
+      productId,
+      quantity,
+      cartItemId,
+    });
+  }
+
+  releaseStock(productId: string, quantity: number, cartItemId: string) {
+    return this.productsRpcService.releaseStock({
+      productId,
+      quantity,
+      cartItemId,
+    });
   }
 }

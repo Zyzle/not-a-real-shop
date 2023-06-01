@@ -2,28 +2,28 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ClientGrpc } from '@nestjs/microservices';
 import { createMock } from '@golevelup/ts-jest';
 
-import { Products } from '@not-a-real-shop/rpc';
+import { Orders } from '@not-a-real-shop/rpc';
 
-import { ProductsService } from './products.service';
+import { OrdersService } from './orders.service';
 
-describe('ProductsService', () => {
-  let service: ProductsService;
+describe('OrdersService', () => {
+  let service: OrdersService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        ProductsService,
+        OrdersService,
         {
-          provide: Products.PRODUCTS_PACKAGE_NAME,
+          provide: Orders.ORDERS_PACKAGE_NAME,
           useValue:
-            createMock<ClientGrpc>().getService<Products.ProductsServiceClient>(
-              Products.PRODUCTS_SERVICE_NAME
+            createMock<ClientGrpc>().getService<Orders.OrdersServiceClient>(
+              Orders.ORDERS_SERVICE_NAME
             ),
         },
       ],
     }).compile();
 
-    service = module.get<ProductsService>(ProductsService);
+    service = module.get<OrdersService>(OrdersService);
   });
 
   it('should be defined', () => {
