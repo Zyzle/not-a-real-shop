@@ -2,4 +2,36 @@ syntax = "proto3";
 
 package orders;
 
-service OrdersService {}
+service OrdersService {
+	rpc GetAllOrders(GetAllOrdersRequest) returns (Orders) {}
+	rpc GetOrder(GetOrderRequest) returns (Order) {}
+	rpc GetUserOrders(GetUserOrdersRequest) returns (Orders) {}
+}
+
+message GetAllOrdersRequest {}
+
+message GetOrderRequest {
+	string id = 1;
+}
+
+message GetUserOrdersRequest {
+	string userId = 1;
+}
+
+message Orders {
+	repeated Order orders = 1;
+}
+
+message Order {
+	string id = 1;
+	string userId = 2;
+	string productId = 3;
+	int32 quantity = 4;
+	repeated OrderItem items = 5;
+}
+
+message OrderItem {
+	string id = 1;
+	string productId = 2;
+	int32 quantity = 3;
+}

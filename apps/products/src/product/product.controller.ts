@@ -1,5 +1,5 @@
 import { Metadata } from '@grpc/grpc-js';
-import { Controller } from '@nestjs/common';
+import { Controller, Logger } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
 import { Products } from '@not-a-real-shop/rpc';
@@ -7,6 +7,30 @@ import { Products } from '@not-a-real-shop/rpc';
 @Controller()
 @Products.ProductsServiceControllerMethods()
 export class ProductController implements Products.ProductsServiceController {
+  reserveStock(
+    request: Products.StockReservationRequest,
+    metadata?: Metadata
+  ):
+    | Products.StockReservation
+    | Promise<Products.StockReservation>
+    | Observable<Products.StockReservation> {
+    Logger.debug('reserveStock', request, metadata);
+
+    return {} as Products.StockReservation;
+  }
+
+  releaseStock(
+    request: Products.StockReservationRequest,
+    metadata?: Metadata
+  ):
+    | Products.StockReservation
+    | Promise<Products.StockReservation>
+    | Observable<Products.StockReservation> {
+    Logger.debug('releaseStock', request, metadata);
+
+    return {} as Products.StockReservation;
+  }
+
   getProducts(
     request: Products.GetProductsRequest,
     metadata?: Metadata
@@ -14,9 +38,9 @@ export class ProductController implements Products.ProductsServiceController {
     | Products.Products
     | Promise<Products.Products>
     | Observable<Products.Products> {
-    return {
-      products: [],
-    };
+    Logger.debug('getProducts', request, metadata);
+
+    return {} as Products.Products;
   }
 
   getProduct(
@@ -26,10 +50,8 @@ export class ProductController implements Products.ProductsServiceController {
     | Products.Product
     | Promise<Products.Product>
     | Observable<Products.Product> {
-    return {
-      id: request.id,
-      name: 'Product 2',
-      price: 1000,
-    };
+    Logger.debug('getProduct', request, metadata);
+
+    return {} as Products.Product;
   }
 }
