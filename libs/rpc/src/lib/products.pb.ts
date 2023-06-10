@@ -22,6 +22,8 @@ export interface Product {
   name: string;
   price: number;
   stock: number;
+  description: string;
+  imageUrl: string;
 }
 
 export interface Products {

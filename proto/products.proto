@@ -27,6 +27,8 @@ message Product {
 	string name = 2;
 	float price = 3;
 	int32 stock = 4;
+	string description = 5;
+	string imageUrl = 6;
 }
 
 message Products {

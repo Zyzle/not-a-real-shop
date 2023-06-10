@@ -2,25 +2,22 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-const trainersUUID = '90cd82c4-6133-4fb0-937a-9c30ce186e22';
-const trainersStockUUID = '8be45154-0029-4307-953f-22caa19bc61b';
+const trainersID = 'b2f09f0c-6b8c-4ce3-8db9-0d106d3c18ba';
 
 async function main() {
   const trainers = await prisma.product.upsert({
-    where: { id: trainersUUID },
+    where: { id: trainersID },
     update: {},
     create: {
-      name: 'Trainers',
-      price: 50,
-    },
-  });
-
-  const trainersStock = await prisma.stock.upsert({
-    where: { id: trainersStockUUID },
-    update: {},
-    create: {
-      productId: trainersUUID,
-      quantity: 10,
+      name: 'Blue Trainers',
+      price: 99.99,
+      description: 'Blue trainers, usually in pairs',
+      imageUrl: '',
+      Stock: {
+        create: {
+          quantity: 100,
+        },
+      },
     },
   });
 }
